@@ -1,6 +1,8 @@
 html, body {
     margin: 0px;
-    height: 100%;
+    height: 100vh;
     background-color: #FF6663;
-
+    box-sizing: border-box;
+    overflow: auto;
+    padding-bottom: 2em;
 }
