@@ -11,6 +11,7 @@ const NuclearBody = (props) => {
 
     const { ids } = props
     const [names, setNames] = useState([])
+    const [states, setStates] = useState([])
 
     useEffect(() => {
         const getName = async () => {
@@ -24,10 +25,24 @@ const NuclearBody = (props) => {
                 setNames(names => [...names, name])
             }
           }
+          const getState = async () => {
+            for (let id of ids) {
+                id = id.replace(/['"]+/g, '')
+                const rawData = await fetch(`https://nuclear.dacoder.io/reactors/reactor-state/${id}?apiKey=a42ff3098bd8736d`, {
+                    method: "GET",
+                  })
+                let state = await rawData.json()
+                state = state.state
+
+                setStates(states => [...states, state])
+            }
+          }
     
         getName()
+        getState()
     }, [ids])
 
+    console.log(states)
     return (
         <div style={{
             display: "flex",
@@ -37,18 +52,18 @@ const NuclearBody = (props) => {
                 <div style={{
                 width:"96%",
                 background: "#BFD7EA",
-                height: "60em"
+                paddingBottom: "2em"
             }}>
                 <NuclearDashboard />
                 <div style={{
                     display: "flex",
                     height: "100%",
-                    gap: "10em",
+                    justifyContent: "space-evenly",
                     alignItems: "center",
-                    overflowX: "scroll"
+                    flexWrap: "wrap",
                 }}>
                 {names.map((name, index) => {
-                    return <Reactor key={index} name={name} />
+                    return <Reactor key={index} name={name} state={states[index]} />
                 })}
                 </div>
             </div>

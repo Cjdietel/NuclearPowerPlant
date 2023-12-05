@@ -23,7 +23,7 @@ const NuclearDashboard = () => {
 
                 
         }}>
-            <h2>Output: 0 GW</h2>
+            <h4>Output: 0 GW</h4>
         </div>
         
         <div style={{
@@ -39,7 +39,7 @@ const NuclearDashboard = () => {
 
                 
         }}>
-            <h2>Avg. Temp: 0 C</h2>
+            <h4>Avg. Temp: 0 C</h4>
         </div>
         
         <div style={{
@@ -54,9 +54,9 @@ const NuclearDashboard = () => {
 
                 
         }}>
-            <h2>Coolant (ON/OFF)</h2>
+            <h4>Coolant (ON/OFF)</h4>
         </div>
-        <h1>Nuclear Dashboard</h1>
+        <h3>Nuclear Dashboard</h3>
         <div style={{
                 height: "3em",
                 width: "10%",
@@ -68,7 +68,7 @@ const NuclearDashboard = () => {
                 outline: "3px solid black"
                 
         }}>
-            <h1>RESET</h1>
+            <h3>RESET</h3>
         </div>
             <div style={{
                 height: "3em",
@@ -82,7 +82,7 @@ const NuclearDashboard = () => {
 
                 
         }}>
-            <h3>CONTROLLED SHUTDOWN</h3>
+            <h5>CONTROLLED SHUTDOWN</h5>
         </div>
             <div style={{
                 height: "3em",
@@ -96,7 +96,7 @@ const NuclearDashboard = () => {
 
                 
         }}>
-            <h3>EMERGENCY SHUTDOWN</h3>
+            <h5>EMERGENCY SHUTDOWN</h5>
         </div>
 
         </div>
