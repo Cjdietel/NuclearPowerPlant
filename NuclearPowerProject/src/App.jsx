@@ -9,6 +9,8 @@ import SystemLogs from './components/SystemLogs'
 function App() {
   const [latestIds, setLatestIds] = useState([]);
   const [reactorView, setReactorView] = useState(false)
+  const [viewName, setViewName] = useState("")
+
 
   useEffect(() => {
     const getReactor = async () => {
@@ -34,8 +36,8 @@ function App() {
 
   return (
     <>
-      <Nav reactorView={reactorView} setReactorView={setReactorView}/>
-      <NuclearBody ids={latestIds} reactorView={reactorView} setReactorView={setReactorView}/>
+      <Nav reactorView={reactorView} setReactorView={setReactorView} viewName={viewName}/>
+      <NuclearBody ids={latestIds} reactorView={reactorView} setReactorView={setReactorView} viewName={viewName} setViewName={setViewName}/>
       { !reactorView && <Graph />}
       { !reactorView && <SystemLogs />}
     </>

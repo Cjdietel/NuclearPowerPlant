@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react"
 const ReactorView = (props) => {
-    const { ReactorView, setReactorView, reactorViewID, state } = props
+    const { reactorViewID, state, viewName, setViewName } = props
 
-    const [viewName, setViewName] = useState("")
     const [reactorState, setReactorState] = useState("")
 
     useEffect(() => {
@@ -12,7 +11,6 @@ const ReactorView = (props) => {
                 setReactorState(value.state)
             }
         }
-        console.log(viewName)
     
     },[state])
     return (
