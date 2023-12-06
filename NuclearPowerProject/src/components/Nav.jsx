@@ -1,17 +1,20 @@
-const Nav = () => {
+const Nav = (props) => {
+
+    const { reactorView, setReactorView } = props
     return (
         <div style={{
             width:"100%",
-            height: "5em",
+            height: "100%",
             background: "#0b3954",
             display: "flex",
             justifyContent: "center",
             alignItems: "center"
 
         }}>
+            {reactorView && <button style={{justifyContent: "left"}} onClick={() => {setReactorView(false)}}>Return</button>}
             <h1 style={{
                 fontFamily: "sans-serif"
-            }}>NucleaRazzle Power Palace</h1>
+            }}>{reactorView ? "Reactor Manager" : "NucleaRazzle Power Palace"}</h1>
 
         </div>
     )

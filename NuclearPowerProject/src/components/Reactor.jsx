@@ -1,6 +1,6 @@
 const Reactor = (props) => {
 
-    const { id, name, state, setReactorView, reactorView } = props
+    const { name, state, setReactorView, reactorView, setReactorViewID } = props
     return (
         <div style={{
             display: "flex",
@@ -16,23 +16,17 @@ const Reactor = (props) => {
                 <div style={{
                     height: "25em",
                     width: "20em"
-                }} onClick={() => {setReactorView(reactorView.map((reactor) => {
-                    console.log(id)
-                    if (reactor[0].id == id) {
-                        reactor[0].viewing = true
-                        console.log(reactor[0])
-                        return reactor[0]
-                    }
-                    else return reactor[0]
-                }))
-                console.log(reactorView)}
-                
+                }} onClick={() => {
+                    setReactorViewID(state.id)
+                    setReactorView(!reactorView)
+                }
+
                 }>
                     <img src="/src/assets/npp2.png" width="100%" height="100%" alt="Reactor"/>
                 </div>
                 <h3 style={{
                     color: "black"
-                }}>{state}</h3>
+                }}>{state.state}</h3>
             </div>
         </div>
        

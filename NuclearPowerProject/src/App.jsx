@@ -8,6 +8,7 @@ import SystemLogs from './components/SystemLogs'
 
 function App() {
   const [latestIds, setLatestIds] = useState([]);
+  const [reactorView, setReactorView] = useState(false)
 
   useEffect(() => {
     const getReactor = async () => {
@@ -17,22 +18,15 @@ function App() {
         });
 
         const jsonData = await rawDataReactor.json();
-        const reactorIds = jsonData.reactors.map((reactor) => JSON.stringify(reactor.id));
+        const reactorIds = jsonData.reactors.map((reactor) => reactor.id);
 
-        setLatestIds(reactorIds);
-
+        setLatestIds(reactorIds)
       } catch (error) {
         console.error("Error fetching reactor data:", error);
       }
     };
 
-    // Fetch data when the component mounts
-    getReactor();
-    
-
-    const intervalId = setInterval(() => {
-      getReactor()
-    }, 300);
+    const intervalId = setInterval(getReactor, 300);
 
     // cleanup interval
     return () => clearInterval(intervalId);
@@ -40,10 +34,10 @@ function App() {
 
   return (
     <>
-      <Nav />
-      <NuclearBody ids={latestIds}/>
-      <Graph />
-      <SystemLogs />
+      <Nav reactorView={reactorView} setReactorView={setReactorView}/>
+      <NuclearBody ids={latestIds} reactorView={reactorView} setReactorView={setReactorView}/>
+      { !reactorView && <Graph />}
+      { !reactorView && <SystemLogs />}
     </>
   )
 }

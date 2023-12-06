@@ -1,4 +1,33 @@
-const NuclearDashboard = () => {
+import { useState, useEffect } from "react"
+const NuclearDashboard = (props) => {
+
+    const { ids, avgTemp, tempUnit } = props
+
+    const [output, setOutput] = useState(0)
+    const [temp, setTemp] = useState(0)
+    const [coolant, setCoolant] = useState(false)
+
+    useEffect(() => {
+        const getOutput = async () => {
+            let tempOutput = 0
+            for (let id of ids) {
+                try {
+                    const cleanedId = id.replace(/['"]+/g, "");
+                    const rawOutputData = await fetch(`https://nuclear.dacoder.io/reactors/output/${cleanedId}?apiKey=a42ff3098bd8736d`)
+                    const outputJson = await rawOutputData.json()
+                    tempOutput += outputJson.output.amount
+                }
+                catch (error) {
+                    console.error("Error fetching reactor data:", error);
+                }
+            }
+            setOutput(tempOutput)
+        }
+        getOutput()
+
+    }, [ids])
+
+
     return (
         <div style={{
             width: "100%",
@@ -23,7 +52,7 @@ const NuclearDashboard = () => {
 
                 
         }}>
-            <h4>Output: 0 GW</h4>
+            <h4>Output: {output.toFixed(2)} GW</h4>
         </div>
         
         <div style={{
@@ -39,7 +68,7 @@ const NuclearDashboard = () => {
 
                 
         }}>
-            <h4>Avg. Temp: 0 C</h4>
+            <h4>Avg. Temp: {avgTemp.toFixed(2)} {tempUnit == "celsius" ? "C": "F"}</h4>
         </div>
         
         <div style={{
