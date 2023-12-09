@@ -6,3 +6,22 @@ html, body {
     overflow: auto;
     padding-bottom: 2em;
 }
+
+.controlButton {
+    width: 10em;
+    height: 3em;
+    background: #e0ff4f
+
+}
+
+.controlButton:nth-child(3n) {
+    width: 10em;
+    height: 3em;
+    flex-wrap: "wrap";
+
+}
+
+#wrapDiv>* {
+    flex: 1 1 25%;
+    margin: 2em 1em 0em 0em;
+}

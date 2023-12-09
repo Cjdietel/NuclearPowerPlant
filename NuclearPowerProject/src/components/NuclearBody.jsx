@@ -35,9 +35,10 @@ const NuclearBody = (props) => {
           
           
           )
+          let numReactors = tempArray.length
           setTempUnit(tempArray[0].temperature.unit)
           setAvgTemp(tempArray.reduce((prev, curr) => {
-            return prev + curr.temperature.amount
+            return (prev + curr.temperature.amount / numReactors)
         }, 0))
 
         const reactorData = await Promise.all(

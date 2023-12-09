@@ -22,7 +22,8 @@ const ReactorView = (props) => {
             <div style={{
                 width: "96%",
                 height: "100%",
-                background: "#BFD7EA"
+                background: "#BFD7EA",
+                display: "flex"
                 }}>
                     <div style={{
                         display: "flex",
@@ -43,6 +44,47 @@ const ReactorView = (props) => {
                         <div>
                             <h2 style={{color:"black"}}>{reactorState}</h2>
                         </div>
+
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        width: "100%",
+                        height: "100%"
+                    }}>
+                        <div id="wrapDiv" style={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            
+                        }}>
+                            <button className="controlButton" style={{
+                                color: "black",
+                            }}>Lower Rod</button>
+                            <button className="controlButton" style={{
+                                color: "black",
+                            }}>Raise Rod</button>
+                            <button className="controlButton" style={{
+                                color: "black",
+                            }}>Coolant ON/OFF</button>
+                            <button className="controlButton" style={{
+                                color: "black",
+                            }}>Emergency Shutdown</button>
+                            <button className="controlButton" style={{
+                                color: "black",
+                            }}>Controlled Shutdown</button>
+                            <button className="controlButton" style={{
+                                color: "black",
+                            }}>REFUEL</button>
+                        </div>
+                        <div style={{
+                            width: "90%",
+                            height: "15em",
+                            background: "white",
+                            marginTop: "2em",
+                            marginRight: "5em",
+                            marginLeft: "5em"
+                        }}></div>
 
                     </div>
             </div>
