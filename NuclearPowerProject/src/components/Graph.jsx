@@ -28,12 +28,21 @@ useEffect(() => {
             scales: {
                 yAxis: {
                     min: 0,
-                    max: 1000
+                    max: 1000,
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 10,
+                        callback: function(value, index, ticks) {
+                            return value + "°C"
+                        }                  
+                }
+
                 },
                 xAxis: {
                     ticks: {
                         autoSkip: true,
-                        maxTicksLimit: 5                       
+                        maxTicksLimit: 5,
+                                  
                 }
                 }
             },
