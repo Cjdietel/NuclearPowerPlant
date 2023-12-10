@@ -1,6 +1,7 @@
+import { Button } from "@mui/material"
 const Nav = (props) => {
 
-    const { reactorView, setReactorView, viewName } = props
+    const { reactorView, setReactorView, viewName, name } = props
 
     return (
         <div style={{
@@ -12,10 +13,10 @@ const Nav = (props) => {
             alignItems: "center"
 
         }}>
-            {reactorView && <button style={{justifyContent: "left"}} onClick={() => {setReactorView(false)}}>Return</button>}
+            {reactorView && <Button variant="contained" style={{justifyContent: "left"}} onClick={() => {setReactorView(false)}}>Return</Button>}
             <h1 style={{
                 fontFamily: "sans-serif"
-            }}>{reactorView ? "Nuclear Manager"  : "NucleaRazzle Power Palace"}</h1>
+            }}>{reactorView ? "Nuclear Manager"  : name}</h1>
 
         </div>
     )

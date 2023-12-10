@@ -4,7 +4,7 @@ import Reactor from "./Reactor";
 import { useEffect, useState } from "react";
 
 const NuclearBody = (props) => {
-  const { ids, reactorView, setReactorView, viewName, setViewName} = props;
+  const { ids, reactorView, setReactorView, viewName, setViewName, setName} = props;
 
   const [state, setState] = useState([]);
   const [reactorViewID, setReactorViewID] = useState("")
@@ -84,7 +84,7 @@ const NuclearBody = (props) => {
           paddingBottom: "3em",
         }}
       >
-        <NuclearDashboard ids={ids} avgTemp={avgTemp} tempUnit={tempUnit} />
+        <NuclearDashboard ids={ids} avgTemp={avgTemp} tempUnit={tempUnit} setName={setName} />
         <div
           style={{
             display: "flex",

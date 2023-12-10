@@ -10,6 +10,7 @@ function App() {
   const [latestIds, setLatestIds] = useState([]);
   const [reactorView, setReactorView] = useState(false)
   const [viewName, setViewName] = useState("")
+  const [name, setName] = useState("My Nuclear Power Plant")
 
 
   useEffect(() => {
@@ -28,7 +29,7 @@ function App() {
       }
     };
 
-    const intervalId = setInterval(getReactor, 300);
+    const intervalId = setInterval(getReactor, 500);
 
     // cleanup interval
     return () => clearInterval(intervalId);
@@ -36,8 +37,8 @@ function App() {
 
   return (
     <>
-      <Nav reactorView={reactorView} setReactorView={setReactorView} viewName={viewName}/>
-      <NuclearBody ids={latestIds} reactorView={reactorView} setReactorView={setReactorView} viewName={viewName} setViewName={setViewName}/>
+      <Nav reactorView={reactorView} setReactorView={setReactorView} viewName={viewName} name={name}/>
+      <NuclearBody ids={latestIds} reactorView={reactorView} setReactorView={setReactorView} viewName={viewName} setViewName={setViewName} setName={setName}/>
       { !reactorView && <Graph />}
       { !reactorView && <SystemLogs />}
     </>
