@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import { Chart } from "chart.js/auto";
 import { useSnackbar } from "notistack";
 import Button from '@mui/material/Button';
+import { TextField } from "@mui/material";
 const ReactorView = (props) => {
     const { reactorViewID, state, viewName, setViewName } = props
 
@@ -18,6 +19,7 @@ const ReactorView = (props) => {
     const [maintenanceMode, setMaintenanceMode] = useState(false)
     const [tempArray, setTempArray] = useState(Array(600).fill(null))
     const { enqueueSnackbar } = useSnackbar()
+    const [reactorName, setReactorName] = useState(viewName)
 
     const addMessage = (response) => {
         if (response.response != "400") {
@@ -352,6 +354,21 @@ const ReactorView = (props) => {
             }
         }
     }
+    const changeName = (name) => {
+        setReactorName(name)
+    }
+    const handleNameChange = async () => {
+        const rawData = await fetch(`https://nuclear.dacoder.io/reactors/set-reactor-name/${reactorViewID}?apiKey=a42ff3098bd8736d`, {
+            method: "PUT",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+              },
+            body: JSON.stringify({name: reactorName})
+
+        })
+
+    }
 return (
         <div style={{
             display: "flex",
@@ -406,6 +423,12 @@ return (
                             <Button variant="contained"  className="controlButton" onClick={handleRefuel}>REFUEL</Button>
                             <Button variant="contained"  className="controlButton" onClick={handleMaintenance}>{maintenanceMode ? "Turn Maintenance Mode Off" : "Turn Maintenance Mode On"}</Button>
                             <Button variant="contained"  className="controlButton" onClick={handleStartReactor}>START REACTOR</Button>
+                            <div>
+                                <TextField variant="outlined" onChange={(event) => {
+                                    changeName(event.target.value)
+                                }} label="Set Reactor Name"/>
+                                <Button variant="contained"  className="controlButton" onClick={handleNameChange}>Enter</Button>
+                            </div>
                         </div>
                         <div style={{
                             width: "90%",
