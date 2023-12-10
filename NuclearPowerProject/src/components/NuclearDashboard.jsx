@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useSnackbar } from "notistack";
 const NuclearDashboard = (props) => {
 
     const { ids, avgTemp, tempUnit, setName } = props
@@ -6,6 +7,19 @@ const NuclearDashboard = (props) => {
     const [output, setOutput] = useState(0)
     const [temp, setTemp] = useState(0)
     const [input, setInput] = useState("")
+    const { enqueueSnackbar } = useSnackbar()
+
+    const addMessage = (response) => {
+        if (response.response != "400") {
+            enqueueSnackbar(response.message, {variant: "success"})
+            console.log("success")
+        }
+        else {
+            enqueueSnackbar(response.message, {variant: "error"})
+            console.log("failure")
+        }
+
+    }
 
     useEffect(() => {
         const getOutput = async () => {
@@ -43,12 +57,38 @@ const NuclearDashboard = (props) => {
             body: JSON.stringify({name: input})
         })
         setName(input)
+        if (JSON.stringify(rawData.status) != "400") {
+
+            addMessage({
+                message: "Plant successfully changed to " + input,
+                response: JSON.stringify(rawData.status)
+            })
+        }
+        else {
+            addMessage({
+                message: "Unsuccessfully changed name",
+                response: JSON.stringify(rawData.status)
+            })
+        }
     }
 
     const handleReset = async () => {
         const rawData = await fetch("https://nuclear.dacoder.io/reactors/reset?apiKey=a42ff3098bd8736d", {
             method: "POST"
         })
+        if (JSON.stringify(rawData.status) != "400") {
+
+            addMessage({
+                message: "Plant successfully reset",
+                response: JSON.stringify(rawData.status)
+            })
+        }
+        else {
+            addMessage({
+                message: "Plant reset not successful",
+                response: JSON.stringify(rawData.status)
+            })
+        }
     }
 
     const handleControlledShutdown = async () => {
@@ -56,6 +96,20 @@ const NuclearDashboard = (props) => {
             const rawData = await fetch(`https://nuclear.dacoder.io/reactors/controlled-shutdown/${id}?apiKey=a42ff3098bd8736d`, {
                 method: "POST"
             })
+            if (JSON.stringify(rawData.status) != "400") {
+
+                addMessage({
+                    message: "Plant Controlled Shutdown Successful",
+                    response: JSON.stringify(rawData.status)
+                })
+            }
+            else {
+                console.log(rawData.status)
+                addMessage({
+                    message: "Plant Controlled Shutdown Unsuccessful",
+                    response: JSON.stringify(rawData.status)
+                })
+            }
         }
     }
     const handleEmergencyShutdown = async () => {
@@ -63,6 +117,20 @@ const NuclearDashboard = (props) => {
             const rawData = await fetch(`https://nuclear.dacoder.io/reactors/emergency-shutdown/${id}?apiKey=a42ff3098bd8736d`, {
                 method: "POST"
             })
+            if (JSON.stringify(rawData.status) != "400") {
+
+                addMessage({
+                    message: "Plant Emergency Shutdown Successful",
+                    response: JSON.stringify(rawData.status)
+                })
+            }
+            else {
+                console.log(rawData.status)
+                addMessage({
+                    message: "Plant Emergency Shutdown Unsuccessful",
+                    response: JSON.stringify(rawData.status)
+                })
+            }
         }
     }
 

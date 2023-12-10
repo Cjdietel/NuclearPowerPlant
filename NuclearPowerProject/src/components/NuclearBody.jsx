@@ -3,6 +3,7 @@ import ReactorView from "./ReactorView";
 import Reactor from "./Reactor";
 import { useEffect, useState } from "react";
 
+
 const NuclearBody = (props) => {
   const { ids, reactorView, setReactorView, viewName, setViewName, setName, rollingTempAvg, setRollingTempAvg} = props;
 
@@ -12,6 +13,7 @@ const NuclearBody = (props) => {
   const [avgTemp, setAvgTemp] = useState(0)
   const [tempUnit, setTempUnit] = useState("")
   const [tempObj, setTempObj] = useState([{}])
+
 
 
   useEffect(() => {

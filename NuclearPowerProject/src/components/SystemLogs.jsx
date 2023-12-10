@@ -16,7 +16,7 @@ const SystemLogs = (props) => {
                         let tempArray = reactorLog[id]
                         // arrLength = tempArray.length
                         for (let log of reactorLog[id]) {
-                            setLogs(prevLog => {return prevLog + "\n" + log})
+                            setLogs(prevLog => {return prevLog + '\n' + log})
                         }
                     }
                 }
@@ -43,7 +43,9 @@ const SystemLogs = (props) => {
                 background: "#BFD7EA",
                 display: "flex",
                 justifyContent: "center",
-                alignItems: "center"
+                alignItems: "center",
+                whiteSpace: "pre-wrap",
+                overflowY: "auto"
             }}>
                 <p>{logs}</p>
             </div>

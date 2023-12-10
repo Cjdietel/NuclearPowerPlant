@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { Chart } from "chart.js/auto";
+import { useSnackbar } from "notistack";
 import Button from '@mui/material/Button';
 const ReactorView = (props) => {
     const { reactorViewID, state, viewName, setViewName } = props
@@ -16,6 +17,20 @@ const ReactorView = (props) => {
     const [output, setOutput] = useState(0)
     const [maintenanceMode, setMaintenanceMode] = useState(false)
     const [tempArray, setTempArray] = useState(Array(600).fill(null))
+    const { enqueueSnackbar } = useSnackbar()
+
+    const addMessage = (response) => {
+        if (response.response != "400") {
+            enqueueSnackbar(response.message, {variant: "success"})
+            console.log("success")
+        }
+        else {
+            enqueueSnackbar(response.message, {variant: "error"})
+            console.log("failure")
+        }
+
+    }
+
 
     useEffect(() => {
         for (let value of state) {
@@ -148,8 +163,23 @@ const ReactorView = (props) => {
                 const rawData = await fetch(`https://nuclear.dacoder.io/reactors/drop-rod/${value.id}?apiKey=a42ff3098bd8736d`, {
                     method: "POST"
                 })
+                if (JSON.stringify(rawData.status) != "400") {
+
+                    addMessage({
+                        message: "Rod successfully lowered",
+                        response: JSON.stringify(rawData.status)
+                    })
+                }
+                else {
+                    console.log(rawData.status)
+                    addMessage({
+                        message: "Rod lowered unsuccessful",
+                        response: JSON.stringify(rawData.status)
+                    })
+                }
             }
         }
+        
     }
     const handleRaiseRod = async () => {
         for (let value of state) {
@@ -157,6 +187,20 @@ const ReactorView = (props) => {
                 const rawData = await fetch(`https://nuclear.dacoder.io/reactors/raise-rod/${value.id}?apiKey=a42ff3098bd8736d`, {
                     method: "POST"
                 })
+                if (JSON.stringify(rawData.status) != "400") {
+
+                    addMessage({
+                        message: "Rod successfully raised",
+                        response: JSON.stringify(rawData.status)
+                    })
+                }
+                else {
+                    console.log(rawData.status)
+                    addMessage({
+                        message: "Rod raise unsuccessful",
+                        response: JSON.stringify(rawData.status)
+                    })
+                }
             }
         }
     }
@@ -171,6 +215,20 @@ const ReactorView = (props) => {
                       },
                     body: JSON.stringify({coolant: coolant ? "off" : "on"})
                 })
+                if (JSON.stringify(rawData.status) != "400") {
+
+                    addMessage({
+                        message: "Coolant Successfully toggled",
+                        response: JSON.stringify(rawData.status)
+                    })
+                }
+                else {
+                    console.log(rawData.status)
+                    addMessage({
+                        message: "Coolant toggle unsuccessful",
+                        response: JSON.stringify(rawData.status)
+                    })
+                }
             }
         }
         setCoolant(!coolant)
@@ -181,6 +239,20 @@ const ReactorView = (props) => {
                 const rawData = await fetch(`https://nuclear.dacoder.io/reactors/controlled-shutdown/${value.id}?apiKey=a42ff3098bd8736d`, {
                     method: "POST"
                 })
+                if (JSON.stringify(rawData.status) != "400") {
+
+                    addMessage({
+                        message: "Reactor Controlled Shutdown Successful",
+                        response: JSON.stringify(rawData.status)
+                    })
+                }
+                else {
+                    console.log(rawData.status)
+                    addMessage({
+                        message: "Reactor Controlled Shutdown Unsuccessful",
+                        response: JSON.stringify(rawData.status)
+                    })
+                }
             }
         }
     }
@@ -190,6 +262,20 @@ const ReactorView = (props) => {
                 const rawData = await fetch(`https://nuclear.dacoder.io/reactors/emergency-shutdown/${value.id}?apiKey=a42ff3098bd8736d`, {
                     method: "POST"
                 })
+                if (JSON.stringify(rawData.status) != "400") {
+
+                    addMessage({
+                        message: "Reactor Emergency Shutdown Successful",
+                        response: JSON.stringify(rawData.status)
+                    })
+                }
+                else {
+                    console.log(rawData.status)
+                    addMessage({
+                        message: "Reactor Emergency Shutdown Unsuccessful",
+                        response: JSON.stringify(rawData.status)
+                    })
+                }
             }
         }
     }
@@ -199,6 +285,20 @@ const ReactorView = (props) => {
                 const rawData = await fetch(`https://nuclear.dacoder.io/reactors/start-reactor/${value.id}?apiKey=a42ff3098bd8736d`, {
                     method: "POST"
                 })
+                if (JSON.stringify(rawData.status) != "400") {
+
+                    addMessage({
+                        message: "Reactor Successfully Started",
+                        response: JSON.stringify(rawData.status)
+                    })
+                }
+                else {
+                    console.log(rawData.status)
+                    addMessage({
+                        message: "Reactor Unsuccessfully Started",
+                        response: JSON.stringify(rawData.status)
+                    })
+                }
             }
         }
         if (maintenanceMode) {
@@ -211,6 +311,20 @@ const ReactorView = (props) => {
                 const rawData = await fetch(`https://nuclear.dacoder.io/reactors/refuel/${value.id}?apiKey=a42ff3098bd8736d`, {
                     method: "POST"
                 })
+                if (JSON.stringify(rawData.status) != "400") {
+
+                    addMessage({
+                        message: "Reactor Refuel Successful",
+                        response: JSON.stringify(rawData.status)
+                    })
+                }
+                else {
+                    console.log(rawData.status)
+                    addMessage({
+                        message: "Reactor Refuel Unsuccessful",
+                        response: JSON.stringify(rawData.status)
+                    })
+                }
             }
         }
     }
@@ -220,6 +334,20 @@ const ReactorView = (props) => {
                 const rawData = await fetch(`https://nuclear.dacoder.io/reactors/maintenance/${value.id}?apiKey=a42ff3098bd8736d`, {
                     method: "POST"
                 })
+                if (JSON.stringify(rawData.status) != "400") {
+
+                    addMessage({
+                        message: "Maintenance Mode Toggled",
+                        response: JSON.stringify(rawData.status)
+                    })
+                }
+                else {
+                    console.log(rawData.status)
+                    addMessage({
+                        message: "Unsuccessfully toggled Maintenance Mode",
+                        response: JSON.stringify(rawData.status)
+                    })
+                }
                 setMaintenanceMode(!maintenanceMode)
             }
         }
