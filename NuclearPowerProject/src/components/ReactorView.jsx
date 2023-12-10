@@ -112,7 +112,14 @@ const ReactorView = (props) => {
                     scales: {
                         yAxis: {
                             min: 0,
-                            max: 1000
+                            max: 1000,
+                            ticks: {
+                            maxTicksLimit: 10,
+                            callback: function(value, index, ticks) {
+                                return value + "°C"
+                            }
+                        }                  
+    
                         },
                         xAxis: {
                             ticks: {
