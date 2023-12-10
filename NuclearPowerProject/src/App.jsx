@@ -8,12 +8,13 @@ import SystemLogs from './components/SystemLogs'
 
 function App() {
   const [latestIds, setLatestIds] = useState([]);
+  const [reactors, setReactors] = useState([]);
   const [reactorView, setReactorView] = useState(false)
   const [viewName, setViewName] = useState("")
   const [name, setName] = useState("My Nuclear Power Plant")
 
-
   useEffect(() => {
+
     const getReactor = async () => {
       try {
         const rawDataReactor = await fetch("https://nuclear.dacoder.io/reactors?apiKey=a42ff3098bd8736d", {
@@ -22,7 +23,6 @@ function App() {
 
         const jsonData = await rawDataReactor.json();
         const reactorIds = jsonData.reactors.map((reactor) => reactor.id);
-
         setLatestIds(reactorIds)
       } catch (error) {
         console.error("Error fetching reactor data:", error);
@@ -34,6 +34,7 @@ function App() {
     // cleanup interval
     return () => clearInterval(intervalId);
   }, []);
+
 
   return (
     <>

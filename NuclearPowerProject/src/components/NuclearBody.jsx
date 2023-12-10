@@ -11,12 +11,12 @@ const NuclearBody = (props) => {
   const [tempArray, setTempArray] = useState([])
   const [avgTemp, setAvgTemp] = useState(0)
   const [tempUnit, setTempUnit] = useState("")
+  const [tempObj, setTempObj] = useState([{}])
 
 
   useEffect(() => {
     const fetchData = async () => {
         setTempArray([])
-        try {
         const rawData = await fetch("https://nuclear.dacoder.io/reactors?apiKey=a42ff3098bd8736d", {
           method: "GET",
         });
@@ -30,6 +30,7 @@ const NuclearBody = (props) => {
               }
             );
             const tempData = await tempResponse.json();
+            // console.log(tempData.temperature.amount + " " + id)
             setTempArray(prevArray => [...prevArray, tempData])
           })
           
@@ -60,9 +61,6 @@ const NuclearBody = (props) => {
           })
         );
         setState(reactorData);
-      } catch (error) {
-        console.error("Error fetching reactor data:", error);
-      }
 
     };
     fetchData();

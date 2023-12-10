@@ -50,14 +50,6 @@ const ReactorView = (props) => {
                             const jsonData = await rawData.json()
                             setTemp(jsonData.temperature.amount)
                             setTempStatus(jsonData.temperature.status)
-                        }
-                    }
-                }
-                const getAvgTemp = async () => {
-                    for (let value of state) {
-                        if (value.id == reactorViewID) {
-                            const rawData = await fetch(`https://nuclear.dacoder.io/reactors/temperature/${value.id}?apiKey=a42ff3098bd8736d`)
-                            const jsonData = await rawData.json()
                             setTempArray(prevTemp => {if (tempArray.length >= 20) {
                                 prevTemp.shift()
                                 return [...prevTemp, jsonData.temperature.amount]
@@ -69,7 +61,7 @@ const ReactorView = (props) => {
                         }
                     }
                 }
-                    const getFuel = async () => {
+                const getFuel = async () => {
                 for (let value of state) {
                     if (value.id == reactorViewID) {
                         const rawData = await fetch(`https://nuclear.dacoder.io/reactors/fuel-level/${value.id}?apiKey=a42ff3098bd8736d`, {
@@ -97,14 +89,21 @@ const ReactorView = (props) => {
             getCoolantState()
             getFuel()
             getOutput()
-            getAvgTemp()
             const chart = new Chart(canvasref.current, {
                 type: 'line',
                 data: {
-                  labels: tempArray.map((_, index) => index),
+                  labels: tempArray.map((_, index) => {
+                    if (index % 120 == 0) {
+                        return 5 - (index / 120)
+                    }
+                    else {
+                        return ""
+                    }
+                  }),
                   datasets: [{
                     yAxisID: "yAxis",
-                    label: 'Avg Temp',
+                    xAxisID: "xAxis",
+                    label: 'Avg Temp Past 5 mins',
                     data: tempArray,
                     borderWidth: 2,
                   }]
@@ -114,6 +113,12 @@ const ReactorView = (props) => {
                         yAxis: {
                             min: 0,
                             max: 1000
+                        },
+                        xAxis: {
+                            ticks: {
+                                autoSkip: true,
+                                maxTicksLimit: 5                       
+                        }
                         }
                     },
                   elements: {
