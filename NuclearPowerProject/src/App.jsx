@@ -41,7 +41,7 @@ function App() {
       <Nav reactorView={reactorView} setReactorView={setReactorView} viewName={viewName} name={name}/>
       <NuclearBody ids={latestIds} reactorView={reactorView} setReactorView={setReactorView} viewName={viewName} setViewName={setViewName} setName={setName}/>
       { !reactorView && <Graph />}
-      { !reactorView && <SystemLogs />}
+      { !reactorView && <SystemLogs latestIds={latestIds}/>}
     </>
   )
 }

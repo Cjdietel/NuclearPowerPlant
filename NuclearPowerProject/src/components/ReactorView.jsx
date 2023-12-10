@@ -130,11 +130,9 @@ const ReactorView = (props) => {
                   maintainAspectRatio: true
                 }
               })
-          
               return () => {
                 chart.destroy()
               }
-              
     },[state])
 
     const handleLowerRod = async () => {
