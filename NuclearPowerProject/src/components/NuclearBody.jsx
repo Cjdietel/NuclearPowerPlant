@@ -4,7 +4,7 @@ import Reactor from "./Reactor";
 import { useEffect, useState } from "react";
 
 const NuclearBody = (props) => {
-  const { ids, reactorView, setReactorView, viewName, setViewName, setName} = props;
+  const { ids, reactorView, setReactorView, viewName, setViewName, setName, rollingTempAvg, setRollingTempAvg} = props;
 
   const [state, setState] = useState([]);
   const [reactorViewID, setReactorViewID] = useState("")
@@ -12,7 +12,6 @@ const NuclearBody = (props) => {
   const [avgTemp, setAvgTemp] = useState(0)
   const [tempUnit, setTempUnit] = useState("")
   const [tempObj, setTempObj] = useState([{}])
-  const [rollingTempAvg, setRollingTempAvg] = useState([Array(600).fill(null)])
 
 
   useEffect(() => {
@@ -42,13 +41,13 @@ const NuclearBody = (props) => {
           setAvgTemp(tempArray.reduce((prev, curr) => {
             return (prev + curr.temperature.amount / numReactors)
         }, 0))
-        setRollingTempAvg(prevAvg => {if (prevAvg.length >= 20) {
+        setRollingTempAvg(prevAvg => {if (rollingTempAvg.length >= 20) {
           prevAvg.shift()
-          return [...prevAvg, prevAvg]
+          return [...prevAvg, avgTemp]
 
         }
         else {
-          return [...prevAvg, prevAvg]
+          return [...prevAvg, avgTemp]
 
         }
       })

@@ -1,4 +1,57 @@
-const Graph = () => {
+import { useEffect, useState, useRef } from "react"
+import { Chart } from "chart.js/auto";
+const Graph = (props) => {
+    const canvasref = useRef(null)
+    const { rollingTempAvg } = props
+
+useEffect(() => {
+    const chart = new Chart(canvasref.current, {
+        type: 'line',
+        data: {
+          labels: rollingTempAvg.map((_, index) => {
+            if (index % 120 == 0) {
+                return 5 - (index / 120)
+            }
+            else {
+                return ""
+            }
+          }),
+          datasets: [{
+            yAxisID: "yAxis",
+            xAxisID: "xAxis",
+            label: 'Avg Temp Past 5 mins',
+            data: rollingTempAvg,
+            borderWidth: 2,
+          }]
+        },
+        options: {
+            scales: {
+                yAxis: {
+                    min: 0,
+                    max: 1000
+                },
+                xAxis: {
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 5                       
+                }
+                }
+            },
+          elements: {
+            point: {
+                pointStyle: false
+            }
+          },
+          animation: false,
+          maintainAspectRatio: true
+        }
+      })
+      return () => {
+        chart.destroy()
+      }
+
+},[rollingTempAvg])
+
     return (
         <div style={{
             display: "flex",
@@ -14,7 +67,7 @@ const Graph = () => {
                 justifyContent: "center",
                 alignItems: "center"
             }}>
-                <h1>GRAPH</h1>
+                <canvas ref={canvasref} height="100px" width="400px" style={{border: "2px solid black"}}></canvas>
             </div>
         </div>
     )

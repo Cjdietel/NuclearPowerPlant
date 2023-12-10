@@ -8,10 +8,10 @@ import SystemLogs from './components/SystemLogs'
 
 function App() {
   const [latestIds, setLatestIds] = useState([]);
-  const [reactors, setReactors] = useState([]);
   const [reactorView, setReactorView] = useState(false)
   const [viewName, setViewName] = useState("")
   const [name, setName] = useState("My Nuclear Power Plant")
+  const [rollingTempAvg, setRollingTempAvg] = useState(Array(600).fill(null))
 
   useEffect(() => {
 
@@ -39,8 +39,8 @@ function App() {
   return (
     <>
       <Nav reactorView={reactorView} setReactorView={setReactorView} viewName={viewName} name={name}/>
-      <NuclearBody ids={latestIds} reactorView={reactorView} setReactorView={setReactorView} viewName={viewName} setViewName={setViewName} setName={setName}/>
-      { !reactorView && <Graph />}
+      <NuclearBody ids={latestIds} reactorView={reactorView} setReactorView={setReactorView} viewName={viewName} setViewName={setViewName} setName={setName} rollingTempAvg={rollingTempAvg} setRollingTempAvg={setRollingTempAvg}/>
+      { !reactorView && <Graph rollingTempAvg={rollingTempAvg}/>}
       { !reactorView && <SystemLogs latestIds={latestIds}/>}
     </>
   )
